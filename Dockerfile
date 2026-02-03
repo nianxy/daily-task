@@ -42,7 +42,7 @@ COPY --from=builder /app/client/dist ./client/dist
 COPY --from=builder /app/server/dist ./server/dist
 
 # 复制配置文件
-COPY nginx.conf /etc/nginx/sites-enabled/default.conf
+COPY nginx.conf /etc/nginx/sites-enabled/default
 
 # 创建数据目录
 RUN mkdir -p /app/data
