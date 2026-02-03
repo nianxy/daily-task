@@ -25,23 +25,30 @@ function useBeep() {
       const ctx = ctxRef.current ?? new Ctx()
       ctxRef.current = ctx
 
-      const o = ctx.createOscillator()
-      const g = ctx.createGain()
-
-      o.type = 'sine'
-      o.frequency.value = 880
-      g.gain.value = 0.0001
-
-      o.connect(g)
-      g.connect(ctx.destination)
-
       const now = ctx.currentTime
-      g.gain.setValueAtTime(0.0001, now)
-      g.gain.exponentialRampToValueAtTime(0.12, now + 0.01)
-      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.12)
 
-      o.start(now)
-      o.stop(now + 0.13)
+      // 创建一个欢快的上升音效
+      const notes = [523.25, 659.25, 783.99, 1046.50] // C5, E5, G5, C6 (C大调和弦)
+      notes.forEach((freq, i) => {
+        const o = ctx.createOscillator()
+        const g = ctx.createGain()
+
+        o.type = 'triangle'
+        o.frequency.value = freq
+
+        o.connect(g)
+        g.connect(ctx.destination)
+
+        const startTime = now + i * 0.08
+        const duration = 0.15
+
+        g.gain.setValueAtTime(0, startTime)
+        g.gain.linearRampToValueAtTime(0.15, startTime + 0.02)
+        g.gain.exponentialRampToValueAtTime(0.001, startTime + duration)
+
+        o.start(startTime)
+        o.stop(startTime + duration)
+      })
     } catch {
       // ignore
     }
