@@ -59,7 +59,12 @@ export function CheckinPage() {
   const [saving, setSaving] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [celebratingTaskId, setCelebratingTaskId] = useState<string | null>(null)
+  const [doubleScoreDates, setDoubleScoreDates] = useState<string[]>([])
   const beep = useBeep()
+
+  const isDoubleScoreDay = useMemo(() => {
+    return doubleScoreDates.includes(date)
+  }, [doubleScoreDates, date])
 
   const completedCount = useMemo(() => {
     return tasks.reduce((acc, t) => acc + (status[t.id]?.completed ? 1 : 0), 0)
@@ -83,6 +88,7 @@ export function CheckinPage() {
         const st = (await statusRes.json()) as StatusResponse
         if (cancelled) return
         setTasks(cfg.tasks ?? [])
+        setDoubleScoreDates(cfg.doubleScoreDates ?? [])
         setStatus(st.status ?? {})
         setTaskScores(st.taskScores ?? {})
         setTotalScore(st.totalScore ?? 0)
@@ -152,7 +158,9 @@ export function CheckinPage() {
     <div className="container">
       <div className="header">
         <h1 className="title">🧧 每日打卡</h1>
-        <div className="date">{date}</div>
+        <div className={`date ${isDoubleScoreDay ? 'doubleScoreDay' : ''}`}>
+          {isDoubleScoreDay ? '✨ ' : ''}{date}{isDoubleScoreDay ? ' ✨' : ''}
+        </div>
       </div>
 
       <div className="card">
@@ -169,13 +177,12 @@ export function CheckinPage() {
                 const checked = Boolean(status[t.id]?.completed)
                 const busy = saving === t.id
                 const completedAt = status[t.id]?.completedAt
-                const completedAtText =
-                  checked && completedAt
-                    ? new Date(completedAt).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })
-                    : '—'
+                const completedAtText = checked && completedAt
+                  ? new Date(completedAt).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })
+                  : null
                 const displayScore = taskScores[t.id] ?? t.score
                 const isCelebrating = celebratingTaskId === t.id
                 return (
@@ -193,10 +200,12 @@ export function CheckinPage() {
                       </span>
                     </label>
                     <span className="right">
+                      {completedAtText && (
+                        <span className="time">完成时间：{completedAtText}</span>
+                      )}
                       <span className={`score ${checked ? 'scoreEarned' : 'scorePending'}`}>
                         {checked ? `+${displayScore}` : `${displayScore}`}
                       </span>
-                      <span className="time">{completedAtText}</span>
                     </span>
                   </li>
                 )
