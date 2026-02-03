@@ -72,7 +72,7 @@ jobs:
             IMAGE_NAME="${{ env.IMAGE_NAME }}"
             MOUNT_DIR="${{ env.MOUNT_DIR || '$HOME/daily-task-data' }}"
             IMAGE_TAG="latest"
-            CONTAINER_NAME="toolset-app"
+            CONTAINER_NAME="daily-task-app"
             
             echo "开始部署..."
             echo "镜像: ${IMAGE_NAME}:${IMAGE_TAG}"
