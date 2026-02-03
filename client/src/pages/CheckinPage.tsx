@@ -58,6 +58,7 @@ export function CheckinPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [celebratingTaskId, setCelebratingTaskId] = useState<string | null>(null)
   const beep = useBeep()
 
   const completedCount = useMemo(() => {
@@ -108,7 +109,11 @@ export function CheckinPage() {
         ? { completed: true, completedAt: new Date().toISOString() }
         : { completed: false },
     }))
-    beep()
+    if (completed) {
+      beep()
+      setCelebratingTaskId(taskId)
+      setTimeout(() => setCelebratingTaskId(null), 600)
+    }
     try {
       const res = await fetch('/api/status', {
         method: 'POST',
@@ -172,6 +177,7 @@ export function CheckinPage() {
                       })
                     : '—'
                 const displayScore = taskScores[t.id] ?? t.score
+                const isCelebrating = celebratingTaskId === t.id
                 return (
                   <li className="item" key={t.id}>
                     <label className="left">
@@ -182,7 +188,9 @@ export function CheckinPage() {
                         disabled={busy}
                         onChange={(e) => toggle(t.id, e.target.checked)}
                       />
-                      <span className={`taskTitle ${checked ? 'done' : ''}`}>{t.title}</span>
+                      <span className={`taskTitle ${checked ? 'done' : ''} ${isCelebrating ? 'celebrating' : ''}`}>
+                        {t.title}
+                      </span>
                     </label>
                     <span className="right">
                       <span className={`score ${checked ? 'scoreEarned' : 'scorePending'}`}>
