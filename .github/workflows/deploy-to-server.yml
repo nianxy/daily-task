@@ -95,7 +95,7 @@ jobs:
               --restart unless-stopped \
               -v ${MOUNT_DIR}/tasks.config.json:/app/server/datatasks.config.json \
               -v ${MOUNT_DIR}/data:/app/server/data \
-              -p 8380:80 \
+              -p 8400:80 \
               ${IMAGE_NAME}:${IMAGE_TAG}
             
             echo "部署完成！"
