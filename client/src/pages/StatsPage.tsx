@@ -104,10 +104,10 @@ export function StatsPage() {
                 <div className="chartTitle">每日完成任务数</div>
                 <div className="chart">
                   <ResponsiveContainer width="100%" height={240}>
-                    <BarChart data={data.data}>
+                    <BarChart data={data.data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-                      <YAxis allowDecimals={false} />
+                      <YAxis allowDecimals={false} width={30} />
                       <Tooltip />
                       <Bar dataKey="completedCount" fill="#c41e3a" radius={[6, 6, 0, 0]} />
                     </BarChart>
@@ -119,10 +119,10 @@ export function StatsPage() {
                 <div className="chartTitle">每日获得积分</div>
                 <div className="chart">
                   <ResponsiveContainer width="100%" height={240}>
-                    <BarChart data={data.data}>
+                    <BarChart data={data.data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-                      <YAxis allowDecimals={false} />
+                      <YAxis allowDecimals={false} width={30} />
                       <Tooltip />
                       <Bar dataKey="earnedScore" fill="#fa8c16" radius={[6, 6, 0, 0]} />
                     </BarChart>
@@ -134,10 +134,10 @@ export function StatsPage() {
                 <div className="chartTitle">累计总分（按日期）</div>
                 <div className="chart">
                   <ResponsiveContainer width="100%" height={240}>
-                    <LineChart data={data.data}>
+                    <LineChart data={data.data} margin={{ left: 0, right: 0, top: 0, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-                      <YAxis allowDecimals={false} />
+                      <YAxis allowDecimals={false} width={30} />
                       <Tooltip />
                       <Line
                         type="monotone"
