@@ -24,20 +24,26 @@
 
 .title {
   margin: 0;
-  font-size: 22px;
+  font-size: 24px;
   letter-spacing: 0.2px;
+  background: linear-gradient(135deg, #c41e3a 0%, #d4380d 50%, #fa8c16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .date {
   font-size: 14px;
-  color: #475569;
+  color: #8b4513;
+  font-weight: 500;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 240, 0.95) 100%);
+  border: 2px solid rgba(196, 30, 58, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(196, 30, 58, 0.12), 0 0 0 1px rgba(250, 140, 22, 0.1);
   overflow: hidden;
 }
 
@@ -59,9 +65,15 @@
   justify-content: space-between;
   gap: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  border: 1px solid rgba(196, 30, 58, 0.15);
   padding: 10px 12px;
-  background: rgba(248, 250, 252, 0.8);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 248, 240, 0.9) 100%);
+  transition: all 0.2s ease;
+}
+
+.item:hover {
+  border-color: rgba(196, 30, 58, 0.3);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.1);
 }
 
 .left {
@@ -84,8 +96,9 @@
 }
 
 .done {
-  color: #0f766e;
+  color: #c41e3a;
   text-decoration: line-through;
+  text-decoration-color: #fa8c16;
 }
 
 .celebrating {
@@ -98,7 +111,7 @@
   }
   25% {
     transform: scale(1.15) rotate(5deg);
-    color: #10b981;
+    color: #c41e3a;
   }
   50% {
     transform: scale(1.1) rotate(-3deg);
@@ -127,20 +140,21 @@
 }
 
 .scorePending {
-  background: rgba(100, 116, 139, 0.10);
-  border-color: rgba(100, 116, 139, 0.25);
-  color: #475569;
+  background: linear-gradient(135deg, rgba(250, 140, 22, 0.15) 0%, rgba(255, 183, 77, 0.15) 100%);
+  border-color: rgba(250, 140, 22, 0.3);
+  color: #8b4513;
 }
 
 .scoreEarned {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.25);
-  color: #047857;
+  background: linear-gradient(135deg, rgba(196, 30, 58, 0.15) 0%, rgba(212, 56, 13, 0.15) 100%);
+  border-color: rgba(196, 30, 58, 0.3);
+  color: #c41e3a;
+  font-weight: 700;
 }
 
 .time {
   font-size: 12px;
-  color: #64748b;
+  color: #8b4513;
   min-width: 44px;
   text-align: right;
 }
@@ -151,32 +165,35 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px 14px;
-  border-top: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid rgba(196, 30, 58, 0.15);
+  background: linear-gradient(135deg, rgba(255, 248, 240, 0.8) 0%, rgba(255, 235, 220, 0.8) 100%);
 }
 
 .muted {
   font-size: 13px;
-  color: #64748b;
+  color: #8b4513;
 }
 
 .error {
   font-size: 13px;
-  color: #b91c1c;
+  color: #c41e3a;
+  font-weight: 500;
 }
 
 .link {
   font-size: 13px;
-  color: #0f172a;
+  color: #2d1b0e;
   text-decoration: none;
   padding: 6px 10px;
   border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(196, 30, 58, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 248, 240, 0.85) 100%);
+  transition: all 0.2s ease;
 }
 
 .link:hover {
-  border-color: rgba(99, 102, 241, 0.45);
+  border-color: rgba(196, 30, 58, 0.4);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.15);
 }
 
 .statsLink {
@@ -184,24 +201,33 @@
   width: 100%;
   box-sizing: border-box;
   text-align: center;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #c41e3a 0%, #d4380d 50%, #fa8c16 100%);
   color: white;
   border-color: transparent;
   font-weight: 600;
+  box-shadow: 0 4px 16px rgba(196, 30, 58, 0.3);
+  transition: all 0.2s ease;
+}
+
+.statsLink:hover {
+  box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+  transform: translateY(-1px);
 }
 
 .backBtn {
   font-size: 13px;
-  color: #0f172a;
+  color: #2d1b0e;
   text-decoration: none;
   padding: 6px 10px;
   border-radius: 10px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(196, 30, 58, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 248, 240, 0.85) 100%);
+  transition: all 0.2s ease;
 }
 
 .backBtn:hover {
-  border-color: rgba(99, 102, 241, 0.45);
+  border-color: rgba(196, 30, 58, 0.4);
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.15);
 }
 
 .statsGrid {
@@ -222,27 +248,30 @@
 }
 
 .kpi {
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(248, 250, 252, 0.8);
+  border: 1px solid rgba(196, 30, 58, 0.15);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 248, 240, 0.9) 100%);
   border-radius: 12px;
   padding: 10px 12px;
 }
 
 .kpiLabel {
   font-size: 12px;
-  color: #64748b;
+  color: #8b4513;
 }
 
 .kpiValue {
   font-size: 18px;
   font-weight: 700;
-  color: #0b1220;
+  background: linear-gradient(135deg, #c41e3a 0%, #fa8c16 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-top: 4px;
 }
 
 .chartCard {
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(196, 30, 58, 0.15);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 248, 240, 0.9) 100%);
   border-radius: 12px;
   padding: 10px 12px;
 }
@@ -250,10 +279,51 @@
 .chartTitle {
   font-size: 13px;
   font-weight: 600;
-  color: #0b1220;
+  color: #2d1b0e;
   margin-bottom: 8px;
 }
 
 .chart {
   width: 100%;
+}
+
+/* 春节装饰效果 */
+.container::before {
+  content: "🏮";
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  opacity: 0.6;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container::after {
+  content: "🧨";
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  opacity: 0.6;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 移动设备上隐藏装饰图标 */
+@media (max-width: 768px) {
+  .container::before,
+  .container::after {
+    display: none;
+  }
+}
+
+/* 复选框样式优化 */
+.checkbox {
+  accent-color: #c41e3a;
+  cursor: pointer;
+}
+
+.checkbox:checked {
+  accent-color: #c41e3a;
 }

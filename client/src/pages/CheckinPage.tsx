@@ -151,7 +151,7 @@ export function CheckinPage() {
   return (
     <div className="container">
       <div className="header">
-        <h1 className="title">每日打卡</h1>
+        <h1 className="title">🧧 每日打卡</h1>
         <div className="date">{date}</div>
       </div>
 
@@ -214,7 +214,7 @@ export function CheckinPage() {
       </div>
 
       <Link className="link statsLink" to="/stats">
-        近一周统计 →
+        🎊 近一周统计 →
       </Link>
 
       {error ? <div className="error">{error}</div> : null}

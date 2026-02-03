@@ -67,7 +67,7 @@ export function StatsPage() {
           <Link className="backBtn" to="/">
             ← 返回
           </Link>
-          <h1 className="title">近一周统计</h1>
+          <h1 className="title">🎊 近一周统计</h1>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ export function StatsPage() {
                       <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                       <YAxis allowDecimals={false} />
                       <Tooltip />
-                      <Bar dataKey="completedCount" fill="#0ea5e9" radius={[6, 6, 0, 0]} />
+                      <Bar dataKey="completedCount" fill="#c41e3a" radius={[6, 6, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -124,7 +124,7 @@ export function StatsPage() {
                       <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                       <YAxis allowDecimals={false} />
                       <Tooltip />
-                      <Bar dataKey="earnedScore" fill="#10b981" radius={[6, 6, 0, 0]} />
+                      <Bar dataKey="earnedScore" fill="#fa8c16" radius={[6, 6, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -142,9 +142,9 @@ export function StatsPage() {
                       <Line
                         type="monotone"
                         dataKey="cumulativeEarnedScore"
-                        stroke="#6366f1"
+                        stroke="#d4380d"
                         strokeWidth={3}
-                        dot={{ r: 3 }}
+                        dot={{ r: 3, fill: "#d4380d" }}
                       />
                     </LineChart>
                   </ResponsiveContainer>

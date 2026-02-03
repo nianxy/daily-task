@@ -3,8 +3,8 @@
     Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.5;
   font-weight: 400;
-  color: #0b1220;
-  background: radial-gradient(1200px 600px at 20% 10%, #e8f0ff 0%, #ffffff 60%, #f8fafc 100%);
+  color: #2d1b0e;
+  background: radial-gradient(ellipse at top, #fff5e6 0%, #ffe8cc 30%, #ffd9b3 60%, #ffcc99 100%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,11 +14,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #c41e3a;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #a01830;
 }
 
 body {
@@ -34,13 +34,15 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #0b1220;
+  background: linear-gradient(135deg, #c41e3a 0%, #e63946 100%);
   color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
+  box-shadow: 0 2px 8px rgba(196, 30, 58, 0.3);
 }
 button:hover {
-  border-color: #646cff;
+  background: linear-gradient(135deg, #a01830 0%, #c41e3a 100%);
+  box-shadow: 0 4px 12px rgba(196, 30, 58, 0.4);
 }
 button:focus,
 button:focus-visible {
