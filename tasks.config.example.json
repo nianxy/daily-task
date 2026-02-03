@@ -1,4 +1,5 @@
 {
+  "doubleScoreDates": [],
   "tasks": [
     { "id": "wake_early", "title": "早起", "score": 2 },
     { "id": "exercise", "title": "运动 30 分钟", "score": 3 },

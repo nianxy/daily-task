@@ -91,7 +91,7 @@ export function StatsPage() {
                 <div className="kpi">
                   <div className="kpiLabel">今日得分</div>
                   <div className="kpiValue">
-                    {latest?.earnedScore ?? 0}/{data.totalScorePerDay}
+                    {latest?.earnedScore ?? 0}/{latest?.totalScore ?? 0}
                   </div>
                 </div>
                 <div className="kpi">

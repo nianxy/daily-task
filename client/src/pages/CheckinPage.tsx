@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 
 type TaskConfig = { id: string; title: string; score: number }
-type TasksConfigFile = { tasks: TaskConfig[] }
+type TasksConfigFile = { tasks: TaskConfig[]; doubleScoreDates?: string[] }
 type DailyTaskEntry = { completed: boolean; completedAt?: string }
-type StatusResponse = { date: string; status: Record<string, DailyTaskEntry> }
+type StatusResponse = { date: string; status: Record<string, DailyTaskEntry>; totalScore: number; earnedScore: number; taskScores: Record<string, number> }
 
 function todayYYYYMMDD() {
   const d = new Date()
@@ -52,6 +52,9 @@ export function CheckinPage() {
   const [date] = useState(() => todayYYYYMMDD())
   const [tasks, setTasks] = useState<TaskConfig[]>([])
   const [status, setStatus] = useState<Record<string, DailyTaskEntry>>({})
+  const [taskScores, setTaskScores] = useState<Record<string, number>>({})
+  const [totalScore, setTotalScore] = useState(0)
+  const [earnedScore, setEarnedScore] = useState(0)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -62,17 +65,6 @@ export function CheckinPage() {
   }, [tasks, status])
 
   const remainingCount = Math.max(0, tasks.length - completedCount)
-
-  const totalScore = useMemo(() => {
-    return tasks.reduce((acc, t) => acc + (Number.isFinite(t.score) ? t.score : 0), 0)
-  }, [tasks])
-
-  const earnedScore = useMemo(() => {
-    return tasks.reduce(
-      (acc, t) => acc + (status[t.id]?.completed ? (Number.isFinite(t.score) ? t.score : 0) : 0),
-      0,
-    )
-  }, [tasks, status])
 
   useEffect(() => {
     let cancelled = false
@@ -91,6 +83,9 @@ export function CheckinPage() {
         if (cancelled) return
         setTasks(cfg.tasks ?? [])
         setStatus(st.status ?? {})
+        setTaskScores(st.taskScores ?? {})
+        setTotalScore(st.totalScore ?? 0)
+        setEarnedScore(st.earnedScore ?? 0)
       } catch (e: any) {
         if (cancelled) return
         setError(e?.message ?? '加载失败')
@@ -126,6 +121,9 @@ export function CheckinPage() {
       }
       const data = (await res.json()) as StatusResponse
       setStatus(data.status ?? {})
+      setTaskScores(data.taskScores ?? {})
+      setTotalScore(data.totalScore ?? 0)
+      setEarnedScore(data.earnedScore ?? 0)
     } catch (e: any) {
       setError(e?.message ?? '保存失败')
       try {
@@ -133,6 +131,9 @@ export function CheckinPage() {
         if (r.ok) {
           const d = (await r.json()) as StatusResponse
           setStatus(d.status ?? {})
+          setTaskScores(d.taskScores ?? {})
+          setTotalScore(d.totalScore ?? 0)
+          setEarnedScore(d.earnedScore ?? 0)
         }
       } catch {
         // ignore
@@ -170,6 +171,7 @@ export function CheckinPage() {
                         minute: '2-digit',
                       })
                     : '—'
+                const displayScore = taskScores[t.id] ?? t.score
                 return (
                   <li className="item" key={t.id}>
                     <label className="left">
@@ -184,7 +186,7 @@ export function CheckinPage() {
                     </label>
                     <span className="right">
                       <span className={`score ${checked ? 'scoreEarned' : 'scorePending'}`}>
-                        {checked ? `+${t.score}` : `${t.score}`}
+                        {checked ? `+${displayScore}` : `${displayScore}`}
                       </span>
                       <span className="time">{completedAtText}</span>
                     </span>

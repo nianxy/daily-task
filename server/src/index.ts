@@ -33,7 +33,23 @@ app.get("/api/status", async (req, res) => {
   try {
     const date = normalizeDate(String(req.query.date ?? getTodayDateString()));
     const status = await readDailyStatusOrEmpty(date);
-    res.json({ date, status });
+    const config = await readTasksConfig();
+    const doubleScoreDates = new Set(config.doubleScoreDates ?? []);
+    const isDoubleScore = doubleScoreDates.has(date);
+
+    let totalScore = 0;
+    let earnedScore = 0;
+    const taskScores: Record<string, number> = {};
+    for (const t of config.tasks) {
+      const score = isDoubleScore ? t.score * 2 : t.score;
+      taskScores[t.id] = score;
+      totalScore += score;
+      if (status[t.id]?.completed) {
+        earnedScore += score;
+      }
+    }
+
+    res.json({ date, status, totalScore, earnedScore, taskScores });
   } catch (err: any) {
     res.status(400).json({ error: err?.message ?? "bad_request" });
   }
@@ -57,7 +73,23 @@ app.post("/api/status", async (req, res) => {
     const prev = await readDailyStatusOrEmpty(date);
     const next = { ...prev, [taskId]: setEntryCompleted(prev[taskId], completed) };
     await writeDailyStatus(date, next);
-    res.json({ date, status: next });
+
+    const doubleScoreDates = new Set(config.doubleScoreDates ?? []);
+    const isDoubleScore = doubleScoreDates.has(date);
+
+    let totalScore = 0;
+    let earnedScore = 0;
+    const taskScores: Record<string, number> = {};
+    for (const t of config.tasks) {
+      const score = isDoubleScore ? t.score * 2 : t.score;
+      taskScores[t.id] = score;
+      totalScore += score;
+      if (next[t.id]?.completed) {
+        earnedScore += score;
+      }
+    }
+
+    res.json({ date, status: next, totalScore, earnedScore, taskScores });
   } catch (err: any) {
     res.status(400).json({ error: err?.message ?? "bad_request" });
   }
@@ -77,12 +109,14 @@ app.get("/api/stats", async (req, res) => {
     }
 
     const allDates = await listAllDailyDates();
+    const doubleScoreDates = new Set(tasksConfig.doubleScoreDates ?? []);
     const earnedByDate = new Map<string, number>();
     for (const d of allDates) {
       const st = await readDailyStatusOrEmpty(d);
       let earned = 0;
+      const isDoubleScore = doubleScoreDates.has(d);
       for (const t of tasks) {
-        if (st[t.id]?.completed) earned += t.score;
+        if (st[t.id]?.completed) earned += isDoubleScore ? t.score * 2 : t.score;
       }
       earnedByDate.set(d, earned);
     }
@@ -106,14 +140,16 @@ app.get("/api/stats", async (req, res) => {
       const st = await readDailyStatusOrEmpty(date);
       let completedCount = 0;
       let earnedScore = 0;
+      const isDoubleScore = doubleScoreDates.has(date);
+      const totalScoreForDate = isDoubleScore ? totalScore * 2 : totalScore;
       for (const t of tasks) {
         if (st[t.id]?.completed) {
           completedCount += 1;
-          earnedScore += t.score;
+          earnedScore += isDoubleScore ? t.score * 2 : t.score;
         }
       }
       cumulative += earnedScore;
-      daysData.push({ date, completedCount, earnedScore, totalScore, cumulativeEarnedScore: cumulative });
+      daysData.push({ date, completedCount, earnedScore, totalScore: totalScoreForDate, cumulativeEarnedScore: cumulative });
     }
 
     res.json({

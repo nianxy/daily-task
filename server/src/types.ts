@@ -6,6 +6,7 @@ export type TaskConfig = {
 
 export type TasksConfigFile = {
   tasks: TaskConfig[];
+  doubleScoreDates?: string[]; // YYYY-MM-DD 格式的日期列表，这些日期的任务积分翻倍
 };
 
 export type DailyTaskEntry = {
