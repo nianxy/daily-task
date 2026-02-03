@@ -42,7 +42,6 @@ COPY --from=builder /app/client/dist ./client/dist
 COPY --from=builder /app/server/dist ./server/dist
 
 # 复制配置文件
-COPY tasks.config.json ./
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 创建数据目录
