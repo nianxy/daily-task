@@ -156,6 +156,17 @@
   border-color: rgba(99, 102, 241, 0.45);
 }
 
+.statsLink {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border-color: transparent;
+  font-weight: 600;
+}
+
 .backBtn {
   font-size: 13px;
   color: #0f172a;

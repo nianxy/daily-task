@@ -200,11 +200,12 @@ export function CheckinPage() {
             已完成 {completedCount} 个，还差 {remainingCount} 个（共 {tasks.length} 个）｜得分 {earnedScore}/
             {totalScore}
           </div>
-          <Link className="link" to="/stats">
-            近一周统计 →
-          </Link>
         </div>
       </div>
+
+      <Link className="link statsLink" to="/stats">
+        近一周统计 →
+      </Link>
 
       {error ? <div className="error">{error}</div> : null}
     </div>
